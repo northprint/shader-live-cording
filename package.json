@@ -1,0 +1,47 @@
+{
+  "name": "shader-live-cording",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@tauri-apps/api": "^2.0.1",
+    "@tauri-apps/cli": "2.0.0-rc.18",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/svelte": "^5.2.8",
+    "@tsconfig/svelte": "^5.0.4",
+    "@vitest/ui": "^3.2.4",
+    "happy-dom": "^18.0.1",
+    "jsdom": "^26.1.0",
+    "svelte": "^5.35.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.2",
+    "vite-plugin-monaco-editor": "^1.1.0",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@duckdb/duckdb-wasm": "1.29.1-dev132.0",
+    "@tauri-apps/plugin-dialog": "^2.3.0",
+    "@tauri-apps/plugin-fs": "^2.4.0",
+    "@types/p5": "^1.7.6",
+    "monaco-editor": "^0.52.2",
+    "p5": "^2.0.3",
+    "tone": "^15.1.22"
+  }
+}

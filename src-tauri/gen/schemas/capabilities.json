@@ -1,0 +1,1 @@
+{"main-capability":{"identifier":"main-capability","description":"Main capability for the shader live coding application","local":true,"windows":["main"],"permissions":["core:default","shell:allow-open","dialog:default","fs:default","core:path:default"],"platforms":["macOS","windows","linux"]}}
