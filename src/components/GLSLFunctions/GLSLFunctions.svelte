@@ -133,12 +133,13 @@
   
   .controls {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
   
   .search-input {
-    flex: 1;
+    width: 100%;
     padding: 0.5rem;
     background-color: #2a2a2a;
     color: #fff;
@@ -148,6 +149,7 @@
   }
   
   .category-select {
+    width: 100%;
     padding: 0.5rem;
     background-color: #2a2a2a;
     color: #fff;

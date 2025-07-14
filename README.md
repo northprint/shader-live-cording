@@ -1,64 +1,85 @@
-# Shader Live Coding Application
+# Shader Live Coding
+
+A real-time shader live coding application for VJ performances, built with Tauri 2.0 and Svelte 5.
 
 リアルタイムシェーダーライブコーディングアプリケーション。VJパフォーマンスや創造的なビジュアル表現のために設計されています。
 
-## 機能
+![Shader Live Coding App](docs/images/screenshot.png)
 
-- **リアルタイムシェーダー編集**: GLSL、WGSL、Slangに対応
-- **音楽同期**: オーディオファイルを読み込んで、音楽に反応するビジュアルを作成
-- **プリセット管理**: 作成したシェーダーを保存・管理
-- **VJモード**: フルスクリーン表示とキーボードショートカット
-- **エクスポート機能**: 静止画や動画として作品を保存
+## Features / 機能
 
-## インストール
+- **Real-time Shader Editing / リアルタイムシェーダー編集**: Live code your GLSL shaders with instant preview / GLSL、WGSL、Slangに対応
+- **Audio Reactive / 音楽同期**: Sync visuals with music using real-time FFT analysis / オーディオファイルを読み込んで、音楽に反応するビジュアルを作成
+- **Preset Management / プリセット管理**: Save and load your favorite shader presets / 作成したシェーダーを保存・管理
+- **VJ Mode / VJモード**: Fullscreen performance mode with keyboard shortcuts / フルスクリーン表示とキーボードショートカット
+- **Export Capabilities / エクスポート機能**: Export as images, videos, or standalone HTML / 静止画や動画として作品を保存
+- **Monaco Editor**: Professional code editor with syntax highlighting / シンタックスハイライト付きの高機能エディタ
+- **Cross-platform / クロスプラットフォーム**: Works on macOS, Windows, and Linux / macOS、Windows、Linuxで動作
 
-### 必要な環境
+## Installation / インストール
 
-- Node.js 18以降
-- pnpm
-- Rust（Tauriのビルドに必要）
+### Download Pre-built Binaries / ビルド済みバイナリのダウンロード
 
-### セットアップ
+Download the latest release from the [Releases page](https://github.com/northprint/shader-live-cording/releases):
+
+最新のリリースは[リリースページ](https://github.com/northprint/shader-live-cording/releases)からダウンロードできます：
+
+- **macOS**: `.dmg` file / `.dmg`ファイル
+  - Apple Silicon (M1/M2): `shader-live-coding_0.0.1_aarch64.dmg`
+  - Intel: `shader-live-coding_0.0.1_x64.dmg`
+- **Windows**: `.msi` installer / `.msi`インストーラー
+- **Linux**: `.AppImage` or `.deb` file / `.AppImage`または`.deb`ファイル
+
+### Build from Source / ソースからビルド
+
+Prerequisites / 必要な環境:
+- [Node.js](https://nodejs.org/) 18+ (LTS version)
+- [pnpm](https://pnpm.io/)
+- [Rust](https://www.rust-lang.org/)
 
 ```bash
-# 依存関係のインストール
+# Clone the repository / リポジトリをクローン
+git clone https://github.com/northprint/shader-live-cording.git
+cd shader-live-cording
+
+# Install dependencies / 依存関係のインストール
 pnpm install
 
-# 開発サーバーの起動
-pnpm tauri dev
+# Run in development mode / 開発サーバーの起動
+pnpm tauri:dev
 
-# アプリケーションのビルド
-pnpm tauri build
+# Build for production / アプリケーションのビルド
+pnpm tauri:build
 ```
 
-## 使い方
+## Usage / 使い方
 
-### 基本的な操作
+### Basic Workflow / 基本的な操作
 
-1. **シェーダーの編集**
-   - 左側のエディタにGLSLコードを入力
-   - 自動的にプレビューが更新されます
-   - シンタックスエラーはエディタ下部に表示されます
+1. **Write Shader Code / シェーダーの編集**
+   - Use the Monaco editor to write GLSL code / 左側のエディタにGLSLコードを入力
+   - Changes are reflected in real-time / 自動的にプレビューが更新されます
+   - Syntax errors appear below the editor / シンタックスエラーはエディタ下部に表示されます
 
-2. **プリセットの使用**
-   - 「Select Preset」ドロップダウンから既存のプリセットを選択
-   - カスタムプリセットを保存するには「Save as Preset」ボタンを使用
+2. **Use Presets / プリセットの使用**
+   - Select from existing presets in the dropdown / 「Select Preset」ドロップダウンから既存のプリセットを選択
+   - Save custom presets with the "Save as Preset" button / カスタムプリセットを保存するには「Save as Preset」ボタンを使用
 
-3. **音楽の同期**
-   - 「Load Audio」ボタンからオーディオファイルを選択
-   - 再生/一時停止ボタンで音楽をコントロール
-   - シェーダー内で`iAudioData`や`iFrequency`などの変数を使用して音楽データにアクセス
+3. **Audio Sync / 音楽の同期**
+   - Load audio files with the "Load Audio" button / 「Load Audio」ボタンからオーディオファイルを選択
+   - Control playback with play/pause / 再生/一時停止ボタンで音楽をコントロール
+   - Access audio data in shaders using `iAudioData` and `iFrequency` / シェーダー内で`iAudioData`や`iFrequency`などの変数を使用して音楽データにアクセス
 
-### シェーダー変数
+### Shader Variables / シェーダー変数
 
-以下の組み込み変数が使用できます：
+Built-in uniforms available / 以下の組み込み変数が使用できます：
 
-- `iResolution` - 画面の解像度（vec3）
-- `iTime` - 経過時間（float）
-- `iMouse` - マウスの座標（vec4）
-- `iAudioData` - オーディオの波形データ（sampler2D）
-- `iFrequency` - 周波数データ（sampler2D）
-- `iBass`, `iMid`, `iTreble` - 低音、中音、高音の強度（float）
+- `iResolution` - Screen resolution (vec3) / 画面の解像度（vec3）
+- `iTime` - Elapsed time in seconds (float) / 経過時間（float）
+- `iMouse` - Mouse coordinates (vec4) / マウスの座標（vec4）
+- `iAudioData` - Audio waveform data (sampler2D) / オーディオの波形データ（sampler2D）
+- `iFrequency` - Frequency spectrum data (sampler2D) / 周波数データ（sampler2D）
+- `iBass`, `iMid`, `iTreble` - Low, mid, high frequency intensity (float) / 低音、中音、高音の強度（float）
 
 ### プリセットシェーダー
 
@@ -104,14 +125,14 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 
 **注意**: このツールで生成した音は、読み込んだオーディオファイルの音楽データのようにシェーダーには反映されません。VJパフォーマンス中のサウンドエフェクトとして使用することを想定しています。
 
-### VJモード
+### VJ Mode / VJモード
 
-VJパフォーマンス用の機能：
+Performance features / VJパフォーマンス用の機能：
 
-- **F11**: フルスクリーン切り替え
-- **Space**: 再生/一時停止
-- **1-9**: プリセットの切り替え
-- **Esc**: フルスクリーン終了
+- **F11**: Toggle fullscreen / フルスクリーン切り替え
+- **Space**: Play/Pause / 再生/一時停止
+- **1-9**: Switch presets / プリセットの切り替え
+- **Esc**: Exit fullscreen / フルスクリーン終了
 
 #### ライブコーディング機能
 
@@ -185,10 +206,31 @@ shader-live-cording/
 - **データベース**: SQLite（Tauri統合）
 - **オーディオ**: Web Audio API
 
-### 貢献
+## Contributing / 貢献
 
-プルリクエストは歓迎します。大きな変更の場合は、まずissueを作成して変更内容を議論してください。
+Contributions are welcome! / プルリクエストは歓迎します！
 
-## ライセンス
+1. Fork the repository / リポジトリをフォーク
+2. Create your feature branch / 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
+3. Commit your changes / 変更をコミット (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch / ブランチにプッシュ (`git push origin feature/amazing-feature`)
+5. Open a Pull Request / プルリクエストを開く
 
-[MITライセンス](LICENSE)
+## License / ライセンス
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+このプロジェクトはMITライセンスの下でライセンスされています。詳細は[LICENSE](LICENSE)ファイルをご覧ください。
+
+## Acknowledgments / 謝辞
+
+- Built with [Tauri](https://tauri.app/) for cross-platform desktop support
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/) for code editing
+- [Svelte](https://svelte.dev/) for the reactive UI
+- [Tone.js](https://tonejs.github.io/) for audio processing
+
+## Support / サポート
+
+If you encounter any issues or have questions, please [open an issue](https://github.com/northprint/shader-live-cording/issues) on GitHub.
+
+問題や質問がある場合は、GitHubで[イシューを作成](https://github.com/northprint/shader-live-cording/issues)してください。

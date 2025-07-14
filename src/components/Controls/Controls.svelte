@@ -146,9 +146,11 @@
     padding: 1rem;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    box-sizing: border-box;
   }
   
   .section {
@@ -166,6 +168,7 @@
     display: flex;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
+    flex-wrap: wrap;
   }
   
   .control-button {

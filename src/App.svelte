@@ -451,5 +451,6 @@ void main() {
     height: 100%;
     background-color: #1a1a1a;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 </style>

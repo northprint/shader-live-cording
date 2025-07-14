@@ -281,6 +281,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   h3 {
@@ -319,6 +321,7 @@
   .effects-panel, .sampler-panel {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   
   .effect-section {
@@ -422,7 +425,7 @@
   }
   
   .control input[type="range"] {
-    width: 100%;
+    width: calc(100% - 2px);
     height: 4px;
     background: #3a3a3a;
     outline: none;
