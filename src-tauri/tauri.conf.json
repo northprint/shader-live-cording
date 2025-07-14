@@ -1,6 +1,6 @@
 {
   "productName": "shader-live-coding",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "identifier": "com.norihironarayama.shader-live-coding",
   "build": {
     "beforeDevCommand": "pnpm dev",

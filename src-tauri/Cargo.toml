@@ -1,6 +1,6 @@
 [package]
 name = "shader-live-coding"
-version = "0.0.1"
+version = "0.0.2"
 description = "A shader live coding application for VJ performances"
 authors = ["Norihiro Narayama"]
 edition = "2021"

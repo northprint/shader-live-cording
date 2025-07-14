@@ -25,8 +25,8 @@ Download the latest release from the [Releases page](https://github.com/northpri
 最新のリリースは[リリースページ](https://github.com/northprint/shader-live-cording/releases)からダウンロードできます：
 
 - **macOS**: `.dmg` file / `.dmg`ファイル
-  - Apple Silicon (M1/M2): `shader-live-coding_0.0.1_aarch64.dmg`
-  - Intel: `shader-live-coding_0.0.1_x64.dmg`
+  - Apple Silicon (M1/M2): `shader-live-coding_0.0.2_aarch64.dmg`
+  - Intel: `shader-live-coding_0.0.2_x64.dmg`
 - **Windows**: `.msi` installer / `.msi`インストーラー
 - **Linux**: `.AppImage` or `.deb` file / `.AppImage`または`.deb`ファイル
 
