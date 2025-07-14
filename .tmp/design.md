@@ -255,3 +255,61 @@ async function exportAudioSync(
   // 録画処理
 }
 ```
+
+## GitHub Actions設定 - 設計ドキュメント
+
+### 概要
+Shader Live Coding アプリケーションのGitHub Actionsを使用した自動ビルド・リリースパイプラインの設定
+
+### 実装内容
+
+#### 1. パブリッシュワークフロー (publish.yml)
+- **トリガー**: バージョンタグ（v*）のプッシュ時
+- **ビルド対象プラットフォーム**:
+  - macOS (ARM64/Apple Silicon)
+  - macOS (x86_64/Intel)
+  - Windows
+  - Linux (Ubuntu 22.04)
+- **成果物**: 各プラットフォーム用のインストーラー
+  - macOS: .dmg
+  - Windows: .msi
+  - Linux: .AppImage, .deb
+
+#### 2. テストビルドワークフロー (test-build.yml)
+- **トリガー**: mainブランチ、featureブランチへのプッシュ、PR作成時
+- **目的**: ビルドの検証とテストの実行
+- **リリースは作成しない**
+
+### 技術的詳細
+
+#### 使用するActions
+- `actions/checkout@v4`: ソースコードのチェックアウト
+- `pnpm/action-setup@v2`: pnpmのセットアップ
+- `actions/setup-node@v4`: Node.jsのセットアップ
+- `dtolnay/rust-toolchain@stable`: Rustツールチェインのセットアップ
+- `swatinem/rust-cache@v2`: Rustビルドキャッシュ
+- `tauri-apps/tauri-action@v0`: Tauriアプリのビルドとリリース
+
+#### プラットフォーム固有の設定
+- **Ubuntu**: WebKitGTK、AppIndicator等の依存関係をインストール
+- **macOS**: 両アーキテクチャ（ARM64、x86_64）用のターゲットを設定
+
+### 完了した作業
+
+#### アイコンの設定 ✓
+`src-tauri/icons/`ディレクトリに以下のアイコンファイルを配置し、`tauri.conf.json`に設定を追加：
+
+- 32x32.png (Linux/Windows用)
+- 128x128.png (Linux用)
+- 128x128@2x.png (macOS Retina用)
+- icon.ico (Windows用)
+- icon.icns (macOS用)
+
+### 今後の作業
+
+#### コード署名（オプション）
+プロダクションリリースでは、以下の署名設定を検討：
+- **macOS**: Developer ID証明書
+- **Windows**: コード署名証明書
+
+これらはGitHub Secretsに設定し、ワークフローから参照する。
