@@ -13,6 +13,8 @@ export class WebGLRenderer implements RendererInterface {
   private audioData: AudioAnalysisData | null = null;
   private audioTexture: WebGLTexture | null = null;
   private onFrame?: () => void;
+  private mouseX: number = 0;
+  private mouseY: number = 0;
   
   constructor(canvas: HTMLCanvasElement, preserveDrawingBuffer: boolean = false) {
     this.canvas = canvas;
@@ -174,6 +176,7 @@ export class WebGLRenderer implements RendererInterface {
     const time = (Date.now() - this.startTime) / 1000;
     this.setUniform('time', time);
     this.setUniform('resolution', [gl.canvas.width, gl.canvas.height]);
+    this.setUniform('mouse', [this.mouseX, this.mouseY]);
     
     // 音楽データの設定
     if (this.audioData) {
@@ -314,7 +317,8 @@ export class WebGLRenderer implements RendererInterface {
     // 現在のuniform値を返す（エクスポート用）
     const values: Record<string, number | number[]> = {
       time: (Date.now() - this.startTime) / 1000,
-      resolution: [this.canvas.width, this.canvas.height]
+      resolution: [this.canvas.width, this.canvas.height],
+      mouse: [this.mouseX, this.mouseY]
     };
     
     if (this.audioData) {
@@ -327,5 +331,10 @@ export class WebGLRenderer implements RendererInterface {
     }
     
     return values;
+  }
+  
+  setMousePosition(x: number, y: number): void {
+    this.mouseX = x;
+    this.mouseY = y;
   }
 }

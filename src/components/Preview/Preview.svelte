@@ -19,6 +19,8 @@
   let error: string | null = null;
   let lastTime = performance.now();
   let frameCount = 0;
+  let mouseX = 0;
+  let mouseY = 0;
   
   // エクスポート機能用のメソッド
   export function getCanvas(): HTMLCanvasElement | null {
@@ -139,6 +141,19 @@
     }
   }
   
+  function handleMouseMove(event: MouseEvent) {
+    if (!canvas) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    mouseX = event.clientX - rect.left;
+    mouseY = canvas.height - (event.clientY - rect.top); // Y座標を反転（OpenGL座標系）
+    
+    // レンダラーにマウス座標を送信
+    if (renderer && 'setMousePosition' in renderer) {
+      (renderer as any).setMousePosition(mouseX, mouseY);
+    }
+  }
+  
   onMount(() => {
     createRenderer();
     window.addEventListener('resize', handleResize);
@@ -151,7 +166,7 @@
 </script>
 
 <div class="preview-container">
-  <canvas bind:this={canvas}></canvas>
+  <canvas bind:this={canvas} on:mousemove={handleMouseMove}></canvas>
   
   {#if error}
     <div class="error-overlay">

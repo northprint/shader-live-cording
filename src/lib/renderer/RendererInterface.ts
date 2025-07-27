@@ -62,4 +62,9 @@ export interface RendererInterface {
    * Get current uniform values (for export)
    */
   getUniformValues?(): Record<string, number | number[]>;
+  
+  /**
+   * Set mouse position for shader uniforms
+   */
+  setMousePosition?(x: number, y: number): void;
 }

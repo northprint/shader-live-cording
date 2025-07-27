@@ -10,6 +10,8 @@ export class P5Renderer implements RendererInterface {
   private onFrame?: () => void;
   private isRunning = false;
   private containerElement: HTMLElement;
+  private mouseX: number = 0;
+  private mouseY: number = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -55,8 +57,10 @@ export class P5Renderer implements RendererInterface {
       this.p5Instance = null;
     }
 
-    // グローバル変数としてaudioDataを設定
+    // グローバル変数としてaudioDataとマウス座標を設定
     (window as any).audioData = this.audioData;
+    (window as any).mouseX = this.mouseX;
+    (window as any).mouseY = this.mouseY;
 
     const sketch = (p: p5) => {
       // ユーザーコードを実行して関数を取得
@@ -109,8 +113,14 @@ export class P5Renderer implements RendererInterface {
       };
 
       p.draw = () => {
-        // audioDataを更新
+        // audioDataとマウス座標を更新
         (window as any).audioData = this.audioData;
+        (window as any).mouseX = this.mouseX;
+        (window as any).mouseY = this.mouseY;
+        
+        // P5のmouseX/mouseYも更新
+        p.mouseX = this.mouseX;
+        p.mouseY = this.mouseY;
 
         // ユーザーのdraw関数を実行
         if (drawFn) {
@@ -234,5 +244,14 @@ export class P5Renderer implements RendererInterface {
     }
 
     return values;
+  }
+  
+  setMousePosition(x: number, y: number): void {
+    this.mouseX = x;
+    this.mouseY = y;
+    
+    // グローバル変数も更新
+    (window as any).mouseX = x;
+    (window as any).mouseY = y;
   }
 }
